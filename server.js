@@ -2,9 +2,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 
-dotenv.config({ path: 'config.env' });
+dotenv.config({ path: '.env' });
 const { Error } = require('mongoose');
-    const dbConnection = require('./config/database');
+const dbConnection = require('./config/database');
 const apiErorr = require('./util/apiErorr');
 const globalerror = require('./middleware/errormiddleware');
 const subCategoryRoute = require('./routes/subCategoryroute')
@@ -63,3 +63,8 @@ process.on("unhandledRejection", (err) => {
     });
 
 });
+
+
+
+//DB_URI='mongodb+srv://ym79793:a9ZoKqdFNfAuiA2z@atlasdb.in2rkqn.mongodb.net/atlasdb?retryWrites=true&w=majority'
+// pass a9ZoKqdFNfAuiA2z

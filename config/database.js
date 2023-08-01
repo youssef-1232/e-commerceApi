@@ -9,7 +9,7 @@ const dbConnection = () => {
         // .catch((err) => {
         //     console.error(`Database Error: ${err}`);
         //     process.exit(1);
-        // });
+        // }); 
 };
 
 module.exports = dbConnection;

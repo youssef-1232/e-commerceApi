@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const user = require('../models/userModel')
 const apiErorr = require('../util/apiErorr')
 
-const createtoken = (payload) => jwt.sign({ userId: payload }, process.env.jwt_secret_key, { expiresIn: process.env.jwt_expire_time })
+const createtoken = (payload) => jwt.sign({ userId: payload ,isAdmin:this.isAdmin}, process.env.jwt_secret_key, { expiresIn: process.env.jwt_expire_time })
 exports.singup = asyncHandler(async(req, res, next) => {
     //create user
     const User = await user.create({
@@ -44,7 +44,7 @@ exports.protect = asyncHandler(async(req, res, next) => {
 
     //2:verfiy token(change happen ,expired token)
     const decoded = jwt.verify(token, process.env.jwt_secret_key)
-
+    // req.user = decoded;
     //2:check if user exist
     const curentUser = await user.findById(decoded.userId);
     if (!curentUser) {
@@ -60,3 +60,11 @@ exports.protect = asyncHandler(async(req, res, next) => {
     req.user = curentUser;
     next()
 });
+
+exports.Admin=asyncHandler(async(req,res,next)=>{
+    if(req.user.isAdmin){
+        next()
+    }else{
+                    return res.status(403).json({message:"not allow,only admin"})
+    }
+})
