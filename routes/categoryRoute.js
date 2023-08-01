@@ -4,12 +4,13 @@ const { getCategoryvalidator, updatecategoryvalidator, creatCategoryvalidator, d
 const { getCategories, createCategory, getCategory, upduateCategory, deletecategory } = require('../services/categoryService');
 
 const subcategoriesroute = require("./subCategoryroute")
+const authSrrvice = require('../services/authSrrvice')
 
 const router = express.Router();
 
 router.use("/:categoryId/subcategoris", subcategoriesroute)
 
-router.route('/').get(getCategories).post(creatCategoryvalidator, createCategory);
+router.route('/').get(getCategories).post(authSrrvice.protect, creatCategoryvalidator, createCategory);
 router.route('/:id')
     .get(getCategoryvalidator, getCategory)
     .put(updatecategoryvalidator, upduateCategory)

@@ -4,15 +4,19 @@ const morgan = require('morgan');
 
 dotenv.config({ path: 'config.env' });
 const { Error } = require('mongoose');
-const dbConnection = require('./config/database');
+    const dbConnection = require('./config/database');
 const apiErorr = require('./util/apiErorr');
 const globalerror = require('./middleware/errormiddleware');
 const subCategoryRoute = require('./routes/subCategoryroute')
 const categoryRoute = require('./routes/categoryRoute');
+const brandRoute = require('./routes/BrandRoute')
+const productRoute = require("./routes/productRoute")
+const userRoute = require("./routes/userRoute")
+const authRoute = require("./routes/authRoute ")
 
 
 // Connect with db
-dbConnection();
+        dbConnection();
 
 // express app
 const app = express();
@@ -29,6 +33,10 @@ if (process.env.NODE_ENV === 'development') {
 // Mount Routes
 app.use('/api/v1/categories', categoryRoute);
 app.use('/api/v1/subcategories', subCategoryRoute);
+app.use('/api/v1/brands', brandRoute);
+app.use('/api/v1/product', productRoute);
+app.use('/api/v1/users', userRoute);
+    app.use('/api/v1/auth', authRoute);
 
 app.all('*', (req, res, next) => {
     //create error and send it to erorr handling middleware
