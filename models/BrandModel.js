@@ -15,7 +15,17 @@ const BrandSchema = new mongoose.Schema({
         type: String,
         lowercase: true,
     },
-    image: String,
+    Img: {
+        type:Object,
+        default:{
+            url:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+            PublicId:null,
+
+
+            
+        }
+    },
+
     //created by and created at on table
 }, { timestamps: true });
 

@@ -14,15 +14,16 @@ const {
     updatesubcategoryvalidator,
     deletesubcategoryvalidator
 } = require('../util/validetors/subcategoryvalidetors')
+const auth=require('../services/authSrrvice')
     //mergeParams allow us to access parmaters on other router
 const router = express.Router({ mergeParams: true });
 
 
 router.route('/')
     .post(setCategoryIdtoBody, createSubCategoryValidator, createsubCategory)
-    .get(createFliterObj, getsubCategories);
+    .get(createFliterObj,auth.protect, getsubCategories);
 router.route('/:id')
-    .get(getsubCategoryvalidator, getsubCategory)
+    .get(getsubCategoryvalidator,auth.protect, getsubCategory)
     .put(updatesubcategoryvalidator, upduatesubCategory)
     .delete(deletesubcategoryvalidator, deletesubcategory)
 module.exports = router;

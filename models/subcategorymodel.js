@@ -17,6 +17,7 @@ const subCategorySchema = new mongoose.Schema({
         ref: 'Category',
         required: [true, 'SubCategory must be belong to parent category'],
     },
+    
 }, { timestamps: true });
 
 module.exports = mongoose.model('SubCategory', subCategorySchema);

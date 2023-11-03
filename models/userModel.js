@@ -19,7 +19,16 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
     },
     phone: String,
-    profileImg: String,
+    Img: {
+        type:Object,
+        default:{
+            url:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+            PublicId:null,
+
+
+            
+        }
+    },
 
     password: {
         type: String,
@@ -27,9 +36,9 @@ const userSchema = new mongoose.Schema({
         minlength: [6, 'Too short password'],
     },
     passwordChangedAt: Date,
-    // passwordResetCode: String,
-    // passwordResetExpires: Date,
-    // passwordResetVerified: Boolean,
+     passwordResetCode: String,
+     passwordResetExpires: Date,
+     passwordResetVerified: Boolean,
     role: {
         type: String,
         enum: ['user', 'manager', 'admin'],
@@ -39,23 +48,20 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
-    isAdmin: {
-        type: Boolean,
-        default: false,
-    },
+    
     // child reference (one to many)
-    // wishlist: [{
-    //     type: mongoose.Schema.ObjectId,
-    //     ref: 'Product',
-    // }, ],
-    // addresses: [{
-    //     id: { type: mongoose.Schema.Types.ObjectId },
-    //     alias: String,
-    //     details: String,
-    //     phone: String,
-    //     city: String,
-    //     postalCode: String,
-    // }, ],
+    wishlist: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Product',
+    }, ],
+    addresses: [{
+        id: { type: mongoose.Schema.Types.ObjectId },
+        alias: String,
+        details: String,
+        phone: String,
+        city: String,
+        postalCode: String,
+    }, ],
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {

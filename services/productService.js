@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/order
-const Product = require("../models/ProductModel").default;
+const Product = require("../models/ProductModel");
 const factory = require("./handlerFactory");
 
 
@@ -34,7 +34,7 @@ exports.getProducts = factory.getAll(Product, "products")
 //get single product
 //route get/api/v1/product/:id
 //public
-exports.getProduct = factory.getOne(Product)
+exports.getProduct = factory.getOne(Product,'reviews')
 
 
 

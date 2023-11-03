@@ -41,7 +41,17 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Product Image cover is required'],
     },
-    images: [String],
+    Img: {
+        type:Object,
+        default:{
+            url:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+            PublicId:null,
+
+
+            
+        }
+    },
+
     category: {
         type: mongoose.Schema.ObjectId,
         ref: 'Category',
@@ -67,14 +77,23 @@ const productSchema = new mongoose.Schema({
     },
 }, {
     timestamps: true,
+      // to enable virtual populate
+      toJSON: { virtuals: true },
+      toObject: { virtuals: true },
 
+});
+//virtual populate
+productSchema.virtual('reviews',{
+    ref:'Review',
+    foreignField:'product',
+    localField: '_id',
 });
 
 //mongoose midelware
 productSchema.pre(/^find/, function(next) {
     this.populate({
         path: "category",
-        select: "name -__id",
+        select: "name -_id",
     });
     next();
 });
